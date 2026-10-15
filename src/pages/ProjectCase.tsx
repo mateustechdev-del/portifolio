@@ -1,0 +1,37 @@
+import { ArrowLeft, CheckCircle2, Layers3, Workflow } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+
+const cases = {
+  orquestrador: { title: "Orquestrador de Operações com IA — POC", summary: "Prova de conceito end-to-end de um orquestrador inteligente para transformar eventos operacionais em fluxos coordenados e rastreáveis.", challenge: "Fontes operacionais distintas e ferramentas desconectadas dificultavam transformar eventos ao vivo em um fluxo coordenado e rastreável.", outcome: "Base técnica unificada que conecta infraestrutura, inferência de IA, envio de alertas e visibilidade operacional em um único fluxo.", stack: ["Network Integration", "Video Streams", "REST APIs", "Python", "React", "Computer Vision"], scope: ["Arquitetura end-to-end para conectar a camada de rede, fontes de vídeo e serviços de processamento.", "Integração de streams e APIs REST para receber, normalizar e distribuir eventos operacionais.", "Backend responsável pela orquestração das regras, serviços de inferência e canais de alerta.", "Frontend responsivo para acompanhamento de eventos, status dos fluxos e visibilidade operacional."] },
+  epi: { title: "Sistema de Detecção de EPI", summary: "Solução de visão computacional para analisar cenas operacionais e apoiar a identificação de itens de proteção.", challenge: "Acompanhar manualmente o uso de equipamentos de proteção em áreas de risco é uma tarefa contínua e sujeita a falhas.", outcome: "Fluxo técnico para detecção, registro de eventos e geração de insumos de conformidade.", stack: ["Python", "OpenCV", "PyTorch", "YOLO"], scope: ["Pipeline de visão computacional para ingestão de vídeo e análise de imagens em tempo real.", "Detecção de itens de proteção com regras de validação por área e evento.", "Camada de notificações para sinalizar ocorrências relevantes à operação.", "Estrutura para consolidar histórico, evidências e indicadores de conformidade."] },
+  pipeline: { title: "Pipeline de Analytics de Dados", summary: "Pipeline para consolidar dados operacionais e disponibilizá-los de forma confiável para análise.", challenge: "Fontes dispersas e relatórios manuais dificultam a consistência dos indicadores e atrasam decisões.", outcome: "Fluxo reprodutível para transformar dados brutos em informações prontas para análise.", stack: ["Python", "Pandas", "PostgreSQL", "Power BI"], scope: ["Coleta e padronização de dados de fontes operacionais distintas.", "Rotinas de tratamento, validação e consolidação para reduzir inconsistências.", "Persistência em banco relacional e modelagem para consultas analíticas.", "Camada de visualização com indicadores e relatórios recorrentes."] },
+  automacao: { title: "Sistema de Automação de Processos", summary: "Automação de rotinas repetitivas, com integrações e rastreabilidade de execução.", challenge: "Atividades administrativas manuais consomem tempo e introduzem variações no processo.", outcome: "Base modular para automatizar fluxos e acompanhar cada execução de forma rastreável.", stack: ["Python", "REST APIs", "Selenium", "Cron"], scope: ["Mapeamento de etapas repetitivas e definição de regras de execução.", "Integração com APIs e navegação automatizada onde não há interface programática.", "Agendamento, registros de execução e tratamento de falhas.", "Estrutura modular para evoluir fluxos sem reescrever a automação inteira."] },
+  monitoramento: { title: "Plataforma de Monitoramento Inteligente", summary: "Plataforma para identificar sinais operacionais e apoiar o acompanhamento de ocorrências.", challenge: "Desvios e anomalias podem passar despercebidos até causarem impacto na operação.", outcome: "Integração de processamento inteligente, serviços conteinerizados e interface de acompanhamento.", stack: ["Python", "TensorFlow", "Docker", "React"], scope: ["Monitoramento de sinais operacionais com modelos de IA para identificar desvios.", "Serviços conteinerizados para padronizar o ambiente de execução.", "APIs para disponibilizar eventos, estados e dados processados.", "Interface web para consulta de ocorrências e acompanhamento em tempo real."] },
+  dashboard: { title: "Dashboard de Visualização de Dados", summary: "Interface web para tornar indicadores e conjuntos de dados complexos mais acionáveis.", challenge: "Sem visibilidade consolidada, a leitura de métricas fica lenta e dependente de relatórios estáticos.", outcome: "Experiência interativa para consultar indicadores, explorar recortes e apoiar decisões.", stack: ["React", "TypeScript", "D3.js", "Node.js"], scope: ["Interface orientada a decisão, com hierarquia clara para KPIs e indicadores.", "Componentes de visualização para explorar séries, comparativos e filtros.", "Camada de dados integrada por API para atualização dos painéis.", "Frontend em TypeScript estruturado para consistência e manutenção contínua."] },
+};
+
+const ProjectCase = () => {
+  const { slug } = useParams();
+  const project = cases[slug as keyof typeof cases];
+
+  if (!project) return <div className="grid min-h-screen place-items-center bg-background text-foreground"><Link to="/" className="text-primary">Voltar ao portfólio</Link></div>;
+
+  return <main className="min-h-screen bg-background text-foreground">
+    <div className="mx-auto max-w-5xl px-4 py-8 md:px-8 md:py-12">
+      <Link to="/#projects" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"><ArrowLeft className="h-4 w-4" /> Voltar aos projetos</Link>
+      <section className="mt-12 overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/10 via-card to-card p-7 md:p-12">
+        <div className="mb-7 grid h-14 w-14 place-items-center rounded-2xl bg-primary text-primary-foreground"><Workflow className="h-7 w-7" /></div>
+        <p className="mb-3 font-mono text-xs tracking-wider text-primary">CASE STUDY / PROJETO</p>
+        <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight md:text-6xl">{project.title}</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">{project.summary}</p>
+      </section>
+      <section className="grid gap-5 py-8 md:grid-cols-2">
+        <article className="rounded-2xl border border-border bg-card p-6"><p className="mb-3 font-mono text-xs text-muted-foreground">DESAFIO</p><p className="leading-relaxed">{project.challenge}</p></article>
+        <article className="rounded-2xl border border-primary/20 bg-primary/5 p-6"><p className="mb-3 font-mono text-xs text-primary">DIRECIONAMENTO</p><p className="leading-relaxed">{project.outcome}</p></article>
+      </section>
+      <section className="rounded-2xl border border-border bg-card p-7 md:p-9"><div className="mb-7 flex items-center gap-3"><Layers3 className="h-5 w-5 text-primary" /><h2 className="text-2xl font-bold">Escopo técnico</h2></div><ul className="space-y-5">{project.scope.map((item) => <li key={item} className="flex gap-3 leading-relaxed text-muted-foreground"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-primary" />{item}</li>)}</ul><div className="mt-9 border-t border-border pt-6"><p className="mb-3 font-mono text-xs text-muted-foreground">TECNOLOGIAS E DOMÍNIOS</p><div className="flex flex-wrap gap-2">{project.stack.map((tech) => <span key={tech} className="rounded-full bg-secondary px-3 py-1.5 font-mono text-xs">{tech}</span>)}</div></div></section>
+    </div>
+  </main>;
+};
+
+export default ProjectCase;
